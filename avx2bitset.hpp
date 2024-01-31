@@ -122,21 +122,21 @@ public:
 		return tmp;
 	}
 
-	avx2bitset<len> operator|=(const avx2bitset<len>& operand) noexcept {
+	avx2bitset<len>& operator|=(const avx2bitset<len>& operand) noexcept {
 		for (size_t i = 0; i < ymmlen(len); i++) {
 			this->data[i].v256 = _mm256_or_si256(this->data[i].v256, operand.data[i].v256);
 		}
 		return *this;
 	}
 
-	avx2bitset<len> operator&=(const avx2bitset<len>& operand) noexcept {
+	avx2bitset<len>& operator&=(const avx2bitset<len>& operand) noexcept {
 		for (size_t i = 0; i < ymmlen(len); i++) {
 			this->data[i].v256 = _mm256_and_si256(this->data[i].v256, operand.data[i].v256);
 		}
 		return *this;
 	}
 
-	avx2bitset<len> operator^=(const avx2bitset<len>& operand) noexcept {
+	avx2bitset<len>& operator^=(const avx2bitset<len>& operand) noexcept {
 		for (size_t i = 0; i < ymmlen(len); i++) {
 			this->data[i].v256 = _mm256_xor_si256(this->data[i].v256, operand.data[i].v256);
 		}
