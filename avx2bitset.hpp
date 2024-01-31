@@ -32,7 +32,7 @@ public:
 	}
 };
 
-std::ostream& operator<<(std::ostream& ost, const binary_proxy& prox) {
+inline std::ostream& operator<<(std::ostream& ost, const binary_proxy& prox) {
 	ost << (prox.ptr->v8[prox.pos / 8] & (1 << (prox.pos % 8)));
 	return ost;
 }
