@@ -122,28 +122,25 @@ public:
 		return tmp;
 	}
 
-	avx2bitset<len> operator|(const avx2bitset<len>& operand) const noexcept {
-		avx2bitset<len> tmp;
+	avx2bitset<len> operator|=(const avx2bitset<len>& operand) noexcept {
 		for (size_t i = 0; i < ymmlen(len); i++) {
-			tmp.data[i].v256 = _mm256_or_si256(this->data[i].v256, operand.data[i].v256);
+			this->data[i].v256 = _mm256_or_si256(this->data[i].v256, operand.data[i].v256);
 		}
-		return tmp;
+		return *this;
 	}
 
-	avx2bitset<len> operator&(const avx2bitset<len>& operand) const noexcept {
-		avx2bitset<len> tmp;
+	avx2bitset<len> operator&=(const avx2bitset<len>& operand) noexcept {
 		for (size_t i = 0; i < ymmlen(len); i++) {
-			tmp.data[i].v256 = _mm256_and_si256(this->data[i].v256, operand.data[i].v256);
+			this->data[i].v256 = _mm256_and_si256(this->data[i].v256, operand.data[i].v256);
 		}
-		return tmp;
+		return *this;
 	}
 
-	avx2bitset<len> operator^(const avx2bitset<len>& operand) const noexcept {
-		avx2bitset<len> tmp;
+	avx2bitset<len> operator^=(const avx2bitset<len>& operand) noexcept {
 		for (size_t i = 0; i < ymmlen(len); i++) {
-			tmp.data[i].v256 = _mm256_xor_si256(this->data[i].v256, operand.data[i].v256);
+			this->data[i].v256 = _mm256_xor_si256(this->data[i].v256, operand.data[i].v256);
 		}
-		return tmp;
+		return *this;
 	}
 
 	bool operator==(const avx2bitset<len>& operand) const noexcept {
@@ -166,8 +163,28 @@ public:
 };
 
 template<size_t len>
-std::ostream& operator<<(std::ostream& ost, const avx2bitset<len>& a2bs) {
+inline std::ostream& operator<<(std::ostream& ost, const avx2bitset<len>& a2bs) {
 	a2bs.dump(ost);
 	return ost;
 }
 
+template<size_t len>
+inline avx2bitset<len> operator&(const avx2bitset<len>& rhs, const avx2bitset<len>& lhs) {
+	auto tmp = avx2bitset<len>(rhs);
+	tmp &= lhs;
+	return tmp;
+}
+
+template<size_t len>
+inline avx2bitset<len> operator|(const avx2bitset<len>& rhs, const avx2bitset<len>& lhs) {
+	auto tmp = avx2bitset<len>(rhs);
+	tmp |= lhs;
+	return tmp;
+}
+
+template<size_t len>
+inline avx2bitset<len> operator^(const avx2bitset<len>& rhs, const avx2bitset<len>& lhs) {
+	auto tmp = avx2bitset<len>(rhs);
+	tmp ^= lhs;
+	return tmp;
+}
