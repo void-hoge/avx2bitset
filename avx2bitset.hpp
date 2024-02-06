@@ -1,5 +1,7 @@
 #pragma once
 
+#if defined(__AVX2__)
+
 #include <immintrin.h>
 #include <iostream>
 #include <exception>
@@ -188,3 +190,5 @@ inline avx2bitset<len> operator^(const avx2bitset<len>& rhs, const avx2bitset<le
 	tmp ^= lhs;
 	return tmp;
 }
+
+#endif // defined(__AVX2__)
