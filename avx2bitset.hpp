@@ -9,8 +9,8 @@
 #include <sstream>
 #include <bitset>
 
-#define ymmlen(x) ((x % 256 == 0) ? (x / 256) : (x / 256 + 1))
-#define u64len(x) ((x % 64 == 0) ? (x / 64) : (x / 64 + 1))
+#define ymmlen(x) ((x / 256) + ((x % 256) != 0))
+#define u64len(x) ((x / 64) + ((x % 64) != 0))
 
 union ymmunit_t {
 	__m256i v256;
